@@ -1,18 +1,20 @@
 import mongoose from 'mongoose';
-const videoSchema = mongoose.Schema(
-    {
-        title: {
-            type:String,
-            required: true,
-        },
-        author: {
-            type: String,
-            required: true,
-        },
-        publishYear:{
-            type: Number,
-            required: true,
-        }
-    }
-)
-const Video = mongoose.model("Cat", {name:String})
+
+const videoSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
+    },
+    author: {
+        type: String,
+        required: true,
+    },
+    Year: {
+        type: Number,
+        required: true,
+    },
+}, {
+    timestamps: true, // Dodano timestamps
+});
+
+export const Video = mongoose.model('Video', videoSchema);
