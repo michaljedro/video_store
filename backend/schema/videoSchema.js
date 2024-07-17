@@ -14,7 +14,7 @@ const videoSchema = new mongoose.Schema({
         required: true,
     },
 }, {
-    timestamps: true, // Dodano timestamps
+    timestamps: true,
 });
 
 export const Video = mongoose.model('Video', videoSchema);
