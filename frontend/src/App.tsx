@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { PersistenceKey, usePersistedState } from './hooks/usePersistedState';
 
-import { Home } from './pages/Home';
+import  Home  from './pages/Home';
 import { Edit } from './pages/Edit';
 import { Create } from './pages/CreateVideo';
 import { Delete } from './pages/Delete';
