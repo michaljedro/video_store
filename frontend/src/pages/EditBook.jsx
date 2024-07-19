@@ -1,58 +1,65 @@
-import React, { useEffect, useState } from "react";
-import BackBtn from "../components/BackBtn";
+import React, { useState, useEffect } from "react";
+import BackButton from "../components/BackButton";
+import Spinner from "../components/Spinner";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import Loader from "../components/Loading";
+import { useSnackbar } from "notistack";
 
-export const Edit: React.FC = () => {
+const EditBook = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [year, setYear] = useState("");
+  const [publishYear, setPublishYear] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:3000/movie/${id}`)
+      .get(`http://localhost:5555/books/${id}`)
       .then((response) => {
         setAuthor(response.data.author);
-        setYear(response.data.year);
+        setPublishYear(response.data.publishYear);
         setTitle(response.data.title);
         setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
+        alert("An error happened. Please Chack console");
         console.log(error);
       });
   }, []);
-  const handleEditMovie = () => {
+
+  const handleEditBook = () => {
     const data = {
       title,
       author,
-      year,
+      publishYear,
     };
     setLoading(true);
     axios
-      .put(`http://localhost:3000/movie/${id}`, data)
+      .put(`http://localhost:5555/books/${id}`, data)
       .then(() => {
         setLoading(false);
+        enqueueSnackbar("Book Edited successfully", { variant: "success" });
         navigate("/");
       })
       .catch((error) => {
         setLoading(false);
+        enqueueSnackbar("Error", { variant: "error" });
         console.log(error);
       });
   };
+
   return (
     <div>
-      <h1>Edit Movie</h1>
-      <button onClick={() => navigate("/")}>Powrót</button>
-      {loading ? <Loader /> : ""}
+      <BackButton />
+      <h1>Edit Book</h1>
+      {loading ? <Spinner /> : ""}
       <div>
         <div>
-          <h3>Title</h3>
+          <label>Title</label>
           <input
             type="text"
             value={title}
@@ -60,7 +67,7 @@ export const Edit: React.FC = () => {
           />
         </div>
         <div>
-          <h3>Author</h3>
+          <label>Author</label>
           <input
             type="text"
             value={author}
@@ -68,15 +75,17 @@ export const Edit: React.FC = () => {
           />
         </div>
         <div>
-          <h3>Publish Year</h3>
+          <label>Publish Year</label>
           <input
             type="number"
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
+            value={publishYear}
+            onChange={(e) => setPublishYear(e.target.value)}
           />
         </div>
-        <button onClick={handleEditMovie}>Zapisz</button>
+        <button onClick={handleEditBook}>Save</button>
       </div>
     </div>
   );
 };
+
+export default EditBook;
