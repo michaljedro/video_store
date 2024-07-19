@@ -30,7 +30,7 @@ const Icon = styled(BsArrowLeft)`
   font-size: 24px;
 `;
 
-const BackButton: React.FC<BackButtonProps> = ({ destination = '/' }) => {
+const BackBtn: React.FC<BackButtonProps> = ({ destination = '/' }) => {
   return (
     <BackButtonContainer>
       <StyledLink to={destination}>
@@ -40,4 +40,4 @@ const BackButton: React.FC<BackButtonProps> = ({ destination = '/' }) => {
   );
 };
 
-export default BackButton;
+export default BackBtn;

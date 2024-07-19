@@ -1,74 +1,94 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import { Video } from '../schema/videoSchema.js'; // Upewnij się, że rozszerzenie .js jest dodane
+import express from "express";
+import { Video } from "../schema/videoSchema.js";
 
 const router = express.Router();
 
-router.post('/', async (request, response) => {
-    try {
-        const { title, author, Year } = request.body;
-        if (!title || !author || !Year) {
-            return response.status(400).send({ message: 'Send all required fields: title, author, Year' });
-        }
-        const newVideo = { title, author, Year };
-        const video = await Video.create(newVideo);
-        return response.status(201).send(video);
-    } catch (error) {
-        return response.status(500).send({ message: error.message });
+router.post("/", async (request, response) => {
+  try {
+    const { title, author, year } = request.body;
+
+    if (!title || !author || !year) {
+      return response.status(400).send({
+        message: "Wysyłam wszystkie wymagane pola",
+      });
     }
+    const newVideo = {
+      title: title,
+      author: author,
+      year: year,
+    };
+
+    const video = await Video.create(newVideo);
+
+    return response.status(201).send(video);
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
 });
 
-router.get('/:id', async (request, response) => {
-    try {
-        const movieID = request.params.id;
-        if (!mongoose.Types.ObjectId.isValid(movieID)) {
-            return response.status(400).send({ message: 'Invalid ID format' });
-        }
-        const movie = await Video.findById(movieID);
-        if (!movie) {
-            return response.status(404).send({ message: 'Movie not found' });
-        }
-        return response.status(200).json(movie);
-    } catch (error) {
-        return response.status(500).send({ message: error.message });
-    }
+router.get("/", async (request, response) => {
+  try {
+    const videos = await Video.findById({});
+
+    return response.status(200).json({
+      count: videos.length,
+      data: videos,
+    });
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
 });
 
-router.put('/:id', async (request, response) => {
-    try {
-        const { title, author, Year } = request.body;
-        if (!title || !author || !Year) {
-            return response.status(400).send({ message: 'Send all required fields: title, author, Year' });
-        }
-        const movieID = request.params.id;
-        if (!mongoose.Types.ObjectId.isValid(movieID)) {
-            return response.status(400).send({ message: 'Invalid ID format' });
-        }
-        const updatedVideo = { title, author, Year };
-        const video = await Video.findByIdAndUpdate(movieID, updatedVideo, { new: true, runValidators: true });
-        if (!video) {
-            return response.status(404).send({ message: 'Movie not found' });
-        }
-        return response.status(200).send({ message: 'Movie updated successfully' });
-    } catch (error) {
-        return response.status(500).send({ message: error.message });
-    }
+router.get("/:id", async (request, response) => {
+  try {
+    const movieId = request.params.id;
+    const video = await Video.findById(movieId);
+    return response.status(200).json(video);
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
 });
 
-router.delete('/:id', async (request, response) => {
-    try {
-        const movieID = request.params.id;
-        if (!mongoose.Types.ObjectId.isValid(movieID)) {
-            return response.status(400).send({ message: 'Invalid ID format' });
-        }
-        const result = await Video.findByIdAndDelete(movieID);
-        if (!result) {
-            return response.status(404).send({ message: 'Movie not found' });
-        }
-        return response.status(200).send({ message: 'Movie deleted successfully' });
-    } catch (error) {
-        return response.status(500).send({ message: error.message });
+router.put("/:id", async (request, response) => {
+  try {
+    const { title, author, year } = request.body;
+
+    if (!title || !author || !year) {
+      return response.status(400).send({
+        message: "Wszystkie pola muszą być wysłane: title, author, year",
+      });
     }
+
+    const movieId = request.params.id;
+
+    const result = await Video.findByIdAndUpdate(movieId, request.body);
+
+    if (!result) {
+      return response.status(404).json({ message: "Video not found" });
+    }
+
+    return response.status(200).send({ message: "Video updated successfully" });
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
+});
+
+router.delete("/:id", async (request, response) => {
+  try {
+    const movieID = request.body.id;
+    const result = await DeviceMotionEvent.findByIdAndDelete(movieID);
+    if (!result) {
+      return response.status(404).json({ message: "Movie nie znaleziony " });
+    }
+    return response.status(200).send({ message: "Movie deleted successfuuly" });
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
 });
 
 export default router;
