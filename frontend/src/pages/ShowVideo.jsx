@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
-import Spinner from "../components/Spinner";
+import Loader from "../components/Loader";
 
-const ShowBook = () => {
-  const [book, setBook] = useState({});
+const ShowVideo = () => {
+  const [video, setVideo] = useState({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
@@ -14,7 +14,7 @@ const ShowBook = () => {
     axios
       .get(`http://localhost:5555/books/${id}`)
       .then((response) => {
-        setBook(response.data);
+        setVideo(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -28,32 +28,32 @@ const ShowBook = () => {
       <BackButton />
       <h1>Show Book</h1>
       {loading ? (
-        <Spinner />
+        <Loader />
       ) : (
         <div>
           <div>
             <span>Id</span>
-            <span>{book._id}</span>
+            <span>{video._id}</span>
           </div>
           <div>
             <span>Title</span>
-            <span>{book.title}</span>
+            <span>{video.title}</span>
           </div>
           <div>
             <span>Author</span>
-            <span>{book.author}</span>
+            <span>{video.author}</span>
           </div>
           <div>
             <span>Publish Year</span>
-            <span>{book.publishYear}</span>
+            <span>{video.publishYear}</span>
           </div>
           <div>
             <span>Create Time</span>
-            <span>{new Date(book.createdAt).toString()}</span>
+            <span>{new Date(video.createdAt).toString()}</span>
           </div>
           <div>
             <span>Last Update Time</span>
-            <span>{new Date(book.updatedAt).toString()}</span>
+            <span>{new Date(video.updatedAt).toString()}</span>
           </div>
         </div>
       )}
@@ -61,4 +61,4 @@ const ShowBook = () => {
   );
 };
 
-export default ShowBook;
+export default ShowVideo;

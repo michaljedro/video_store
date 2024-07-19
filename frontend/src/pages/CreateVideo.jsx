@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import BackButton from "../components/BackButton";
-import Spinner from "../components/Spinner";
+import Loader from "../components/Loader";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useSnackbar } from "notistack";
 
-const CreateBooks = () => {
+const CreateVideos = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [publishYear, setPublishYear] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
 
   const handleSaveBook = () => {
     const data = {
@@ -24,22 +22,19 @@ const CreateBooks = () => {
       .post("http://localhost:5555/books", data)
       .then(() => {
         setLoading(false);
-        enqueueSnackbar("Book Created successfully", { variant: "success" });
         navigate("/");
       })
       .catch((error) => {
         setLoading(false);
-        // alert('An error happened. Please Chack console');
-        enqueueSnackbar("Error", { variant: "error" });
         console.log(error);
       });
   };
 
   return (
-    <div className="p-4">
+    <div>
       <BackButton />
-      <h1 className="text-3xl my-4">Create Book</h1>
-      {loading ? <Spinner /> : ""}
+      <h1>Create Video</h1>
+      {loading ? <Loader /> : ""}
       <div>
         <div>
           <label>Title</label>
@@ -71,4 +66,4 @@ const CreateBooks = () => {
   );
 };
 
-export default CreateBooks;
+export default CreateVideos;

@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import BackButton from "../components/BackButton";
-import Spinner from "../components/Spinner";
+import Loader from "../components/Loader";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSnackbar } from "notistack";
 
-const DeleteBook = () => {
+const DeleteVideo = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
-  const { enqueueSnackbar } = useSnackbar();
 
   const handleDeleteBook = () => {
     setLoading(true);
@@ -17,12 +15,10 @@ const DeleteBook = () => {
       .delete(`http://localhost:5555/books/${id}`)
       .then(() => {
         setLoading(false);
-        enqueueSnackbar("Book Deleted successfully", { variant: "success" });
         navigate("/");
       })
       .catch((error) => {
         setLoading(false);
-        enqueueSnackbar("Error", { variant: "error" });
         console.log(error);
       });
   };
@@ -31,7 +27,7 @@ const DeleteBook = () => {
     <div>
       <BackButton />
       <h1>Delete Book</h1>
-      {loading ? <Spinner /> : ""}
+      {loading ? <Loader /> : ""}
       <div>
         <h3>Are You Sure You want to delete this book?</h3>
 
@@ -41,4 +37,4 @@ const DeleteBook = () => {
   );
 };
 
-export default DeleteBook;
+export default DeleteVideo;

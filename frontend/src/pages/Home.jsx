@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import Spinner from "../components/Spinner";
+import Loader from "../components/Loader";
 import { Link } from "react-router-dom";
-import { AiOutlineEdit } from "react-icons/ai";
-import { BsInfoCircle } from "react-icons/bs";
-import { MdOutlineAddBox, MdOutlineDelete } from "react-icons/md";
-import BooksTable from "../components/home/BooksTable";
-import BooksCard from "../components/home/BooksCard";
+import { MdOutlineAddBox } from "react-icons/md";
+import VideosTable from "../components/home/VideosTable";
+import VideosCard from "../components/home/VideosCard";
 
 const Home = () => {
-  const [books, setBooks] = useState([]);
+  const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showType, setShowType] = useState("table");
 
@@ -18,7 +16,7 @@ const Home = () => {
     axios
       .get("http://localhost:5555/books")
       .then((response) => {
-        setBooks(response.data.data);
+        setVideos(response.data.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -34,17 +32,17 @@ const Home = () => {
         <button onClick={() => setShowType("card")}>Card</button>
       </div>
       <div>
-        <h1>Books List</h1>
+        <h1>Video List</h1>
         <Link to="/books/create">
           <MdOutlineAddBox />
         </Link>
       </div>
       {loading ? (
-        <Spinner />
+        <Loader />
       ) : showType === "table" ? (
-        <BooksTable books={books} />
+        <VideosTable videos={videos} />
       ) : (
-        <BooksCard books={books} />
+        <VideosCard videos={videos} />
       )}
     </div>
   );

@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsInfoCircle } from "react-icons/bs";
-import { MdOutlineAddBox, MdOutlineDelete } from "react-icons/md";
+import { MdOutlineDelete } from "react-icons/md";
 
-const BooksTable = ({ books }) => {
+const VideosTable = ({ videos }) => {
   return (
     <table>
       <thead>
@@ -16,7 +16,7 @@ const BooksTable = ({ books }) => {
         </tr>
       </thead>
       <tbody>
-        {books.map((book, index) => (
+        {videos.map((book, index) => (
           <tr key={book._id} className="h-8">
             <td>{index + 1}</td>
             <td>{book.title}</td>
@@ -42,4 +42,4 @@ const BooksTable = ({ books }) => {
   );
 };
 
-export default BooksTable;
+export default VideosTable;
