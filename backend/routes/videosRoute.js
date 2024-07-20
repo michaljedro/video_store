@@ -5,11 +5,8 @@ const router = express.Router();
 
 router.post("/", async (request, response) => {
   try {
-    if (
-      !request.body.title ||
-      !request.body.author ||
-      !request.body.publishYear
-    ) {
+    const { title, author, publishYear } = request.body;
+    if (!title || !author || !publishYear) {
       return response.status(400).send({
         message: "Wszystkie pola są : title, author, publishYear",
       });

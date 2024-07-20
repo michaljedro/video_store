@@ -16,7 +16,7 @@ const VideoModal = ({ video, onClose }) => {
         <div>
           <BiUserCircle />
           <h2>{video.author}</h2>
-        </div>
+        </div> 
         <p>Anything You want to show</p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quia
