@@ -19,7 +19,7 @@ const CreateVideos = () => {
     };
     setLoading(true);
     axios
-      .post("http://localhost:5555/books", data)
+      .post("http://localhost:5555/viedos", data)
       .then(() => {
         setLoading(false);
         navigate("/");

@@ -12,7 +12,7 @@ const ShowVideo = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5555/books/${id}`)
+      .get(`http://localhost:5555/videos/${id}`)
       .then((response) => {
         setVideo(response.data);
         setLoading(false);
