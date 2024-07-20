@@ -24,13 +24,13 @@ const VideoSingleCard = ({ video }) => {
       </div>
       <div>
         <BiShow onClick={() => setShowModal(true)} />
-        <Link to={`/books/details/${video._id}`}>
+        <Link to={`/videos/details/${video._id}`}>
           <BsInfoCircle />
         </Link>
-        <Link to={`/books/edit/${video._id}`}>
+        <Link to={`/videos/edit/${video._id}`}>
           <AiOutlineEdit />
         </Link>
-        <Link to={`/books/delete/${video._id}`}>
+        <Link to={`/videos/delete/${video._id}`}>
           <MdOutlineDelete />
         </Link>
       </div>

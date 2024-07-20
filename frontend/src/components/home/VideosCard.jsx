@@ -1,10 +1,10 @@
-import BookSingleCard from "./VideoSingleCard";
+import VideoSingleCard from "./VideoSingleCard";
 
 const VideosCard = ({ videos }) => {
   return (
     <div>
       {videos.map((item) => (
-        <BookSingleCard key={item._id} book={item} />
+        <VideoSingleCard key={item._id} video={item} />
       ))}
     </div>
   );

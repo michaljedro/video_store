@@ -26,7 +26,7 @@ const ShowVideo = () => {
   return (
     <div>
       <BackButton />
-      <h1>Show Book</h1>
+      <h1>Show Videos</h1>
       {loading ? (
         <Loader />
       ) : (

@@ -9,7 +9,7 @@ const DeleteVideo = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const handleDeleteBook = () => {
+  const handleDeleteVideo = () => {
     setLoading(true);
     axios
       .delete(`http://localhost:5555/videos/${id}`)
@@ -26,12 +26,12 @@ const DeleteVideo = () => {
   return (
     <div>
       <BackButton />
-      <h1>Delete Book</h1>
+      <h1>Delete Video</h1>
       {loading ? <Loader /> : ""}
       <div>
-        <h3>Are You Sure You want to delete this book?</h3>
+        <h3>Are You Sure You want to delete this video?</h3>
 
-        <button onClick={handleDeleteBook}>Yes, Delete it</button>
+        <button onClick={handleDeleteVideo}>Yes, Delete it</button>
       </div>
     </div>
   );

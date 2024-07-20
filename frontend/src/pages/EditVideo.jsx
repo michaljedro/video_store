@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
-const EditBook = () => {
+const EditVideo = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [publishYear, setPublishYear] = useState("");
@@ -31,7 +31,7 @@ const EditBook = () => {
       });
   }, []);
 
-  const handleEditBook = () => {
+  const handleEditVideo = () => {
     const data = {
       title,
       author,
@@ -42,7 +42,7 @@ const EditBook = () => {
       .put(`http://localhost:5555/videos/${id}`, data)
       .then(() => {
         setLoading(false);
-        enqueueSnackbar("Book Edited successfully", { variant: "success" });
+        enqueueSnackbar("Video Edited successfully", { variant: "success" });
         navigate("/");
       })
       .catch((error) => {
@@ -55,7 +55,7 @@ const EditBook = () => {
   return (
     <div>
       <BackButton />
-      <h1>Edit Book</h1>
+      <h1>Edit Video</h1>
       {loading ? <Spinner /> : ""}
       <div>
         <div>
@@ -82,10 +82,10 @@ const EditBook = () => {
             onChange={(e) => setPublishYear(e.target.value)}
           />
         </div>
-        <button onClick={handleEditBook}>Save</button>
+        <button onClick={handleEditVideo}>Save</button>
       </div>
     </div>
   );
 };
 
-export default EditBook;
+export default EditVideo;

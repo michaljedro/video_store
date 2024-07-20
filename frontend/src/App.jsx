@@ -1,18 +1,18 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import CreateBook from "./pages/CreateVideo";
-import ShowBook from "./pages/ShowVideo";
-import EditBook from "./pages/EditVideo";
-import DeleteBook from "./pages/DeleteVideo";
+import CreateVideo from "./pages/CreateVideo";
+import ShowVideo from "./pages/ShowVideo";
+import EditVideo from "./pages/EditVideo";
+import DeleteVideo from "./pages/DeleteVideo";
 
 const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/videos/create" element={<CreateBook />} />
-      <Route path="/videos/details/:id" element={<ShowBook />} />
-      <Route path="/videos/edit/:id" element={<EditBook />} />
-      <Route path="/videos/delete/:id" element={<DeleteBook />} />
+      <Route path="/videos/create" element={<CreateVideo />} />
+      <Route path="/videos/details/:id" element={<ShowVideo />} />
+      <Route path="/videos/edit/:id" element={<EditVideo />} />
+      <Route path="/videos/delete/:id" element={<DeleteVideo />} />
     </Routes>
   );
 };

@@ -16,21 +16,21 @@ const VideosTable = ({ videos }) => {
         </tr>
       </thead>
       <tbody>
-        {videos.map((book, index) => (
-          <tr key={book._id} className="h-8">
+        {videos.map((video, index) => (
+          <tr key={video._id} className="h-8">
             <td>{index + 1}</td>
-            <td>{book.title}</td>
-            <td>{book.author}</td>
-            <td>{book.publishYear}</td>
+            <td>{video.title}</td>
+            <td>{video.author}</td>
+            <td>{video.publishYear}</td>
             <td>
               <div>
-                <Link to={`/books/details/${book._id}`}>
+                <Link to={`/videos/details/${video._id}`}>
                   <BsInfoCircle />
                 </Link>
-                <Link to={`/books/edit/${book._id}`}>
+                <Link to={`/videos/edit/${video._id}`}>
                   <AiOutlineEdit />
                 </Link>
-                <Link to={`/books/delete/${book._id}`}>
+                <Link to={`/videos/delete/${video._id}`}>
                   <MdOutlineDelete />
                 </Link>
               </div>

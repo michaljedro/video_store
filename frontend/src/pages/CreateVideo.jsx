@@ -11,7 +11,7 @@ const CreateVideos = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSaveBook = () => {
+  const handleSaveVideo = () => {
     const data = {
       title,
       author,
@@ -60,7 +60,7 @@ const CreateVideos = () => {
             onChange={(e) => setPublishYear(e.target.value)}
           />
         </div>
-        <button onClick={handleSaveBook}>Save</button>
+        <button onClick={handleSaveVideo}>Save</button>
       </div>
     </div>
   );

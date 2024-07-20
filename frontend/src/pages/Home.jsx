@@ -33,7 +33,7 @@ const Home = () => {
       </div>
       <div>
         <h1>Video List</h1>
-        <Link to="/books/create">
+        <Link to="/videos/create">
           <MdOutlineAddBox />
         </Link>
       </div>
