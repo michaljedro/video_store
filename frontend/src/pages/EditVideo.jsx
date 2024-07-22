@@ -17,7 +17,7 @@ const EditVideo = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5555/viedos/${id}`)
+      .get(`http://localhost:5555/videos/${id}`)
       .then((response) => {
         setAuthor(response.data.author);
         setPublishYear(response.data.publishYear);
