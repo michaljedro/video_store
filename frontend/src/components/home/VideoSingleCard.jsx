@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
 import { PiBookOpenTextLight } from "react-icons/pi";
 import { BiUserCircle, BiShow } from "react-icons/bi";
-import { AiOutlineEdit } from "react-icons/ai";
-import { BsInfoCircle } from "react-icons/bs";
-import { MdOutlineDelete } from "react-icons/md";
+import { AiOutlineForm, AiOutlineEye, AiOutlineDelete } from "react-icons/ai";
 import { useState } from "react";
 import VideoModal from "./VideoModal";
 import styled from "styled-components";
@@ -72,13 +70,13 @@ const VideoSingleCard = ({ video }) => {
       <Operations>
         <BiShow onClick={() => setShowModal(true)} />
         <Link to={`/videos/details/${video._id}`}>
-          <BsInfoCircle />
+          <AiOutlineForm />
         </Link>
         <Link to={`/videos/edit/${video._id}`}>
-          <AiOutlineEdit />
+          <AiOutlineEye />
         </Link>
         <Link to={`/videos/delete/${video._id}`}>
-          <MdOutlineDelete />
+          <AiOutlineDelete />
         </Link>
       </Operations>
       {showModal && (

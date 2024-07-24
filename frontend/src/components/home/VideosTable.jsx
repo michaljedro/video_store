@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-import { AiOutlineEdit } from "react-icons/ai";
-import { BsInfoCircle } from "react-icons/bs";
-import { MdOutlineDelete } from "react-icons/md";
+import { AiOutlineForm, AiOutlineEye, AiOutlineDelete } from "react-icons/ai";
 import styled from "styled-components";
 
 const Table = styled.table`
@@ -61,13 +59,13 @@ const VideosTable = ({ videos }) => {
             <Td>
               <Operations>
                 <Link to={`/videos/details/${video._id}`}>
-                  <BsInfoCircle />
+                  <AiOutlineEye />
                 </Link>
                 <Link to={`/videos/edit/${video._id}`}>
-                  <AiOutlineEdit />
+                  <AiOutlineForm />
                 </Link>
                 <Link to={`/videos/delete/${video._id}`}>
-                  <MdOutlineDelete />
+                  <AiOutlineDelete />
                 </Link>
               </Operations>
             </Td>
