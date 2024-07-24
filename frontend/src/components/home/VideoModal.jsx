@@ -84,12 +84,12 @@ const VideoModal = ({ video, onClose }) => {
         </Info>
         <Content>Treść, którą chcesz wyświetlić</Content>
         <Content>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quia
-          voluptatum sint. Nisi impedit libero eveniet cum vitae qui expedita
-          necessitatibus assumenda laboriosam, facilis iste cumque a pariatur
-          nesciunt cupiditate voluptas? Quis atque earum voluptate dolor nisi
-          dolorum est? Deserunt placeat cumque quo dicta architecto, dolore
-          vitae voluptate sequi repellat!
+          Pellentesque vitae porta lacus, a lobortis mi. Donec sagittis, mauris
+          vitae scelerisque aliquet, dui augue ullamcorper ligula, a pretium
+          nulla enim sit amet dolor. Sed tincidunt rutrum metus quis tincidunt.
+          Phasellus non feugiat lorem. Pellentesque quis volutpat arcu.
+          Curabitur pretium gravida lectus, vel tempor nisl hendrerit euismod.
+          Nulla facilisis dui.
         </Content>
       </Modal>
     </Overlay>

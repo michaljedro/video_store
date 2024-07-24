@@ -44,7 +44,7 @@ const VideosTable = ({ videos }) => {
     <Table>
       <Thead>
         <Tr>
-          <Th>No</Th>
+          <Th>Lp</Th>
           <Th>Tytuł</Th>
           <Th>Autor</Th>
           <Th>Rok publikacji</Th>
