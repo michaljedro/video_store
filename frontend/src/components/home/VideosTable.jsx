@@ -2,28 +2,64 @@ import { Link } from "react-router-dom";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsInfoCircle } from "react-icons/bs";
 import { MdOutlineDelete } from "react-icons/md";
+import styled from "styled-components";
+
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+`;
+
+const Thead = styled.thead`
+  background-color: #f8f9fa;
+`;
+
+const Th = styled.th`
+  padding: 10px;
+  border: 1px solid #dee2e6;
+`;
+
+const Tbody = styled.tbody``;
+
+const Tr = styled.tr`
+  height: 40px;
+  &:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+`;
+
+const Td = styled.td`
+  padding: 10px;
+  border: 1px solid #dee2e6;
+  text-align: center;
+`;
+
+const Operations = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
 
 const VideosTable = ({ videos }) => {
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Publish Year</th>
-          <th>Operations</th>
-        </tr>
-      </thead>
-      <tbody>
+    <Table>
+      <Thead>
+        <Tr>
+          <Th>No</Th>
+          <Th>Tytuł</Th>
+          <Th>Autor</Th>
+          <Th>Rok publikacji</Th>
+          <Th>Operacje</Th>
+        </Tr>
+      </Thead>
+      <Tbody>
         {videos.map((video, index) => (
-          <tr key={video._id} className="h-8">
-            <td>{index + 1}</td>
-            <td>{video.title}</td>
-            <td>{video.author}</td>
-            <td>{video.publishYear}</td>
-            <td>
-              <div>
+          <Tr key={video._id}>
+            <Td>{index + 1}</Td>
+            <Td>{video.title}</Td>
+            <Td>{video.author}</Td>
+            <Td>{video.publishYear}</Td>
+            <Td>
+              <Operations>
                 <Link to={`/videos/details/${video._id}`}>
                   <BsInfoCircle />
                 </Link>
@@ -33,12 +69,12 @@ const VideosTable = ({ videos }) => {
                 <Link to={`/videos/delete/${video._id}`}>
                   <MdOutlineDelete />
                 </Link>
-              </div>
-            </td>
-          </tr>
+              </Operations>
+            </Td>
+          </Tr>
         ))}
-      </tbody>
-    </table>
+      </Tbody>
+    </Table>
   );
 };
 

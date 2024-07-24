@@ -1,8 +1,31 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 import BackButton from "../components/BackButton";
 import Loader from "../components/Loader";
+
+const Container = styled.div`
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const Title = styled.h1`
+  color: #333;
+`;
+
+const InfoRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+`;
+
+const Label = styled.span`
+  font-weight: bold;
+`;
 
 const ShowVideo = () => {
   const [video, setVideo] = useState({});
@@ -21,43 +44,43 @@ const ShowVideo = () => {
         console.log(error);
         setLoading(false);
       });
-  }, []);
+  }, [id]);
 
   return (
-    <div>
+    <Container>
       <BackButton />
-      <h1>Show Videos</h1>
+      <Title>Szczegóły Wideo</Title>
       {loading ? (
         <Loader />
       ) : (
         <div>
-          <div>
-            <span>Id</span>
+          <InfoRow>
+            <Label>Identyfikator</Label>
             <span>{video._id}</span>
-          </div>
-          <div>
-            <span>Title</span>
+          </InfoRow>
+          <InfoRow>
+            <Label>Tytuł</Label>
             <span>{video.title}</span>
-          </div>
-          <div>
-            <span>Author</span>
+          </InfoRow>
+          <InfoRow>
+            <Label>Autor</Label>
             <span>{video.author}</span>
-          </div>
-          <div>
-            <span>Publish Year</span>
+          </InfoRow>
+          <InfoRow>
+            <Label>Rok publikacji</Label>
             <span>{video.publishYear}</span>
-          </div>
-          <div>
-            <span>Create Time</span>
+          </InfoRow>
+          <InfoRow>
+            <Label>Czas utworzenia</Label>
             <span>{new Date(video.createdAt).toString()}</span>
-          </div>
-          <div>
-            <span>Last Update Time</span>
+          </InfoRow>
+          <InfoRow>
+            <Label>Ostatnia aktualizacja</Label>
             <span>{new Date(video.updatedAt).toString()}</span>
-          </div>
+          </InfoRow>
         </div>
       )}
-    </div>
+    </Container>
   );
 };
 
