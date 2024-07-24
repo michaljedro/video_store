@@ -1,78 +1,104 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
+import { Link } from "react-router-dom";
+import { MdOutlineAddBox } from "react-icons/md";
+import VideosTable from "../components/home/VideosTable";
+import VideosCard from "../components/home/VideosCard";
+import styled from "styled-components";
 
-import Loader from "../components/Loading";
+const Container = styled.div`
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const Title = styled.h1`
+  color: #333;
+`;
+
+const ButtonGroup = styled.div`
+  margin-bottom: 20px;
+`;
+
+const Button = styled.button`
+  margin-right: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+const AddButton = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  text-decoration: none;
+  margin-left: 20px;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+interface Video {
+  _id: string;
+  title: string;
+  author: string;
+  publishYear: number;
+}
 
 const Home: React.FC = () => {
-  const [books, setBooks] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+  const [videos, setVideos] = useState<Video[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [showType, setShowType] = useState<"table" | "card">("table");
 
   useEffect(() => {
+    setLoading(true);
     axios
-      .get("http://localhost:3000/movie")
+      .get("http://localhost:5555/videos")
       .then((response) => {
-        console.log(response.data);
-        setBooks(response.data.data);
+        setVideos(response.data.data);
         setLoading(false);
       })
       .catch((error) => {
-        console.error("There was an error fetching the data!", error);
+        console.log(error);
         setLoading(false);
       });
   }, []);
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
-    <>
+    <Container>
+      <ButtonGroup>
+        <Button onClick={() => setShowType("table")}>Tabela</Button>
+        <Button onClick={() => setShowType("card")}>Karta</Button>
+      </ButtonGroup>
       <div>
-        <h1>Home Page</h1>
-        <button onClick={() => navigate("/create")}>Create</button>
-        <button onClick={() => navigate("/delete")}>Delete</button>
-        <button onClick={() => navigate("/edit")}>Edit</button>
-        <button onClick={() => navigate("/show")}>Show</button>
-        <ul>
-          {books.map((book, index) => (
-            <li key={index}>{book.title}</li>
-          ))}
-        </ul>
+        <Title>Lista Wideo</Title>
+        <AddButton to="/videos/create">
+          <MdOutlineAddBox size={24} />
+        </AddButton>
       </div>
-      <div>
-        <h1>Video List</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>Number</th>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Publish Year</th>
-              <th>Operations</th>
-            </tr>
-          </thead>
-          <tbody>
-            {books.map((movie, index) => (
-              <tr key={movie._id}>
-                <td>{index + 1}</td>
-                <td>{movie.title}</td>
-                <td>{movie.author}</td>
-                <td>{movie.year}</td>
-                <td>
-                  <div>
-                    <Link to={`/movie/details/${movie._id}`}>Details</Link>
-                    <Link to={`/movie/delete/${movie._id}`}>Delete</Link>
-                    <Link to={`/movie/edit/${movie._id}`}>Edit</Link>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </>
+      {loading ? (
+        <Loader />
+      ) : showType === "table" ? (
+        <VideosTable videos={videos} />
+      ) : (
+        <VideosCard videos={videos} />
+      )}
+    </Container>
   );
 };
 

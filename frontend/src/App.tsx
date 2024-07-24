@@ -1,22 +1,29 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import styled from "styled-components";
 import Home from "./pages/Home";
-import Show from "./pages/Show";
-import { Create } from "./pages/Create";
-import { Edit } from "./pages/Edit";
-import { Delete } from "./pages/Delete";
+import CreateVideo from "./pages/CreateVideo";
+import ShowVideo from "./pages/ShowVideo";
+import EditVideo from "./pages/EditVideo";
+import DeleteVideo from "./pages/DeleteVideo";
+
+const Container = styled.div`
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+  background-color: #f0f0f0;
+`;
 
 const App: React.FC = () => {
   return (
-    <div>
+    <Container>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/movie/details/:id" element={<Show />} />
-        <Route path="/create" element={<Create />} />
-        <Route path="/edit" element={<Edit />} />
-        <Route path="/delete" element={<Delete />} />
+        <Route path="/videos/create" element={<CreateVideo />} />
+        <Route path="/videos/details/:id" element={<ShowVideo />} />
+        <Route path="/videos/edit/:id" element={<EditVideo />} />
+        <Route path="/videos/delete/:id" element={<DeleteVideo />} />
       </Routes>
-    </div>
+    </Container>
   );
 };
 

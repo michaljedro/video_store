@@ -1,82 +1,140 @@
-import React, { useEffect, useState } from "react";
-import BackBtn from "../components/BackBtn";
+import { useState, useEffect } from "react";
+import BackButton from "../components/BackButton";
+import Spinner from "../components/Loader";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import Loader from "../components/Loading";
+import { useSnackbar } from "notistack";
+import styled from "styled-components";
 
-export const Edit: React.FC = () => {
+const Container = styled.div`
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const Title = styled.h1`
+  color: #333;
+`;
+
+const FormGroup = styled.div`
+  margin-bottom: 20px;
+`;
+
+const Label = styled.label`
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+`;
+
+const Button = styled.button`
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+interface Video {
+  title: string;
+  author: string;
+  publishYear: number;
+}
+
+const EditVideo: React.FC = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [year, setYear] = useState("");
+  const [publishYear, setPublishYear] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:3000/movie/${id}`)
+      .get(`http://localhost:5555/videos/${id}`)
       .then((response) => {
         setAuthor(response.data.author);
-        setYear(response.data.year);
+        setPublishYear(response.data.publishYear);
         setTitle(response.data.title);
         setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
+        alert("Wystąpił błąd. Sprawdź konsolę.");
         console.log(error);
       });
-  }, []);
-  const handleEditMovie = () => {
-    const data = {
+  }, [id]);
+
+  const handleEditVideo = () => {
+    const data: Video = {
       title,
       author,
-      year,
+      publishYear,
     };
     setLoading(true);
     axios
-      .put(`http://localhost:3000/movie/${id}`, data)
+      .put(`http://localhost:5555/videos/${id}`, data)
       .then(() => {
         setLoading(false);
+        enqueueSnackbar("Wideo zostało zaktualizowane pomyślnie", {
+          variant: "success",
+        });
         navigate("/");
       })
       .catch((error) => {
         setLoading(false);
+        enqueueSnackbar("Błąd", { variant: "error" });
         console.log(error);
       });
   };
+
   return (
-    <div>
-      <h1>Edit Movie</h1>
-      <button onClick={() => navigate("/")}>Powrót</button>
-      {loading ? <Loader /> : ""}
-      <div>
-        <div>
-          <h3>Title</h3>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div>
-          <h3>Author</h3>
-          <input
-            type="text"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-          />
-        </div>
-        <div>
-          <h3>Publish Year</h3>
-          <input
-            type="number"
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-          />
-        </div>
-        <button onClick={handleEditMovie}>Zapisz</button>
-      </div>
-    </div>
+    <Container>
+      <BackButton />
+      <Title>Edytuj Wideo</Title>
+      {loading ? <Spinner /> : ""}
+      <FormGroup>
+        <Label>Tytuł</Label>
+        <Input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label>Autor</Label>
+        <Input
+          type="text"
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label>Rok Publikacji</Label>
+        <Input
+          type="number"
+          value={publishYear}
+          onChange={(e) => setPublishYear(e.target.value)}
+        />
+      </FormGroup>
+      <Button onClick={handleEditVideo}>Zapisz</Button>
+    </Container>
   );
 };
+
+export default EditVideo;

@@ -1,44 +1,92 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { AiOutlineEdit } from "react-icons/ai";
+import { BsInfoCircle } from "react-icons/bs";
+import { MdOutlineDelete } from "react-icons/md";
+import styled from "styled-components";
 
-const MovieTable = ({ movies }: any) => {
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+`;
+
+const Thead = styled.thead`
+  background-color: #f8f9fa;
+`;
+
+const Th = styled.th`
+  padding: 10px;
+  border: 1px solid #dee2e6;
+`;
+
+const Tbody = styled.tbody``;
+
+const Tr = styled.tr`
+  height: 40px;
+  &:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+`;
+
+const Td = styled.td`
+  padding: 10px;
+  border: 1px solid #dee2e6;
+  text-align: center;
+`;
+
+const Operations = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
+interface Video {
+  _id: string;
+  title: string;
+  author: string;
+  publishYear: number;
+}
+
+interface VideosTableProps {
+  videos: Video[];
+}
+
+const VideosTable: React.FC<VideosTableProps> = ({ videos }) => {
   return (
-    <div>
-      MovieTable
-      <table className="w-full border-separate border-spacing-2">
-        <thead>
-          <tr>
-            <th className="border border-slate-600 rounded-md">No</th>
-            <th className="border border-slate-600 rounded-md">Title</th>
-            <th className="border border-slate-600 rounded-md max-md:hidden">
-              Author
-            </th>
-            <th className="border border-slate-600 rounded-md max-md:hidden">
-              Publish Year
-            </th>
-            <th className="border border-slate-600 rounded-md">Operations</th>
-          </tr>
-        </thead>
-        <tbody>
-          {movies.map((movie: any, index: any) => (
-            <tr key={movie._id}>
-              <td>{index + 1}</td>
-              <td>{movie.title}</td>
-              <td>{movie.author}</td>
-              <td>{movie.year}</td>
-              <td>
-                <div>
-                  <Link to={`/books/details/${movie._id}`}>Info</Link>
-                  <Link to={`/books/edit/${movie._id}`}>Edit</Link>
-                  <Link to={`/books/delete/${movie._id}`}>Delete</Link>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <Table>
+      <Thead>
+        <Tr>
+          <Th>No</Th>
+          <Th>Tytuł</Th>
+          <Th>Autor</Th>
+          <Th>Rok publikacji</Th>
+          <Th>Operacje</Th>
+        </Tr>
+      </Thead>
+      <Tbody>
+        {videos.map((video, index) => (
+          <Tr key={video._id}>
+            <Td>{index + 1}</Td>
+            <Td>{video.title}</Td>
+            <Td>{video.author}</Td>
+            <Td>{video.publishYear}</Td>
+            <Td>
+              <Operations>
+                <Link to={`/videos/details/${video._id}`}>
+                  <BsInfoCircle />
+                </Link>
+                <Link to={`/videos/edit/${video._id}`}>
+                  <AiOutlineEdit />
+                </Link>
+                <Link to={`/videos/delete/${video._id}`}>
+                  <MdOutlineDelete />
+                </Link>
+              </Operations>
+            </Td>
+          </Tr>
+        ))}
+      </Tbody>
+    </Table>
   );
 };
 
-export default MovieTable;
+export default VideosTable;

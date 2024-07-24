@@ -1,43 +1,41 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { BsArrowLeft } from 'react-icons/bs';
-import styled from 'styled-components';
+import { Link } from "react-router-dom";
+import { BsArrowLeft } from "react-icons/bs";
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+const StyledLink = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
 
 interface BackButtonProps {
   destination?: string;
 }
 
-const BackButtonContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const StyledLink = styled(Link)`
-  background-color: #1e3a8a; /* Sky-800 color */
-  color: white;
-  padding: 8px 16px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-
-  &:hover {
-    background-color: #1c3d8a;
-  }
-`;
-
-const Icon = styled(BsArrowLeft)`
-  font-size: 24px;
-`;
-
-const BackBtn: React.FC<BackButtonProps> = ({ destination = '/' }) => {
+const BackButton: React.FC<BackButtonProps> = ({ destination = "/" }) => {
   return (
-    <BackButtonContainer>
+    <Container>
       <StyledLink to={destination}>
-        <Icon />
+        <BsArrowLeft size={24} />
       </StyledLink>
-    </BackButtonContainer>
+    </Container>
   );
 };
 
-export default BackBtn;
+export default BackButton;

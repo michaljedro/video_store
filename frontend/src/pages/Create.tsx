@@ -1,71 +1,116 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Loader from "../components/Loading";
+import { useState } from "react";
+import BackButton from "../components/BackButton";
+import Loader from "../components/Loader";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
-export const Create: React.FC = () => {
+const Container = styled.div`
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const Title = styled.h1`
+  color: #333;
+`;
+
+const FormGroup = styled.div`
+  margin-bottom: 20px;
+`;
+
+const Label = styled.label`
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+`;
+
+const Button = styled.button`
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+interface Video {
+  title: string;
+  author: string;
+  publishYear: number;
+}
+
+const CreateVideos: React.FC = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [year, setYear] = useState("");
+  const [publishYear, setPublishYear] = useState("");
   const [loading, setLoading] = useState(false);
-
   const navigate = useNavigate();
-  const handleSaveBook = () => {
-    const data = {
+
+  const handleSaveVideo = () => {
+    const data: Video = {
       title,
       author,
-      year,
+      publishYear,
     };
     setLoading(true);
     axios
-      .post(`http://localhost:3000/movie`, data)
+      .post("http://localhost:5555/videos", data)
       .then(() => {
         setLoading(false);
         navigate("/");
       })
       .catch((error) => {
         setLoading(false);
-        alert("An error happended. Please Chack console");
         console.log(error);
       });
   };
+
   return (
-    <div>
-      <button onClick={() => navigate("/")}>Powrót</button>
-      <h1>Create Page</h1>
-      <div>
-        {loading ? <Loader /> : ""}
-        <div>
-          <div>
-            <h1>Title</h1>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className=""
-            />
-          </div>
-          <div>
-            <h1>Author</h1>
-            <input
-              type="text"
-              value={author}
-              onChange={(e) => setAuthor(e.target.value)}
-              className=""
-            />
-          </div>
-          <div>
-            <h1>Year</h1>
-            <input
-              type="text"
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
-              className=""
-            />
-          </div>
-          <button onClick={handleSaveBook}>Zapisz</button>
-        </div>
-      </div>
-    </div>
+    <Container>
+      <BackButton />
+      <Title>Utwórz Wideo</Title>
+      {loading ? <Loader /> : ""}
+      <FormGroup>
+        <Label>Tytuł</Label>
+        <Input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label>Autor</Label>
+        <Input
+          type="text"
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label>Rok Publikacji</Label>
+        <Input
+          type="number"
+          value={publishYear}
+          onChange={(e) => setPublishYear(e.target.value)}
+        />
+      </FormGroup>
+      <Button onClick={handleSaveVideo}>Zapisz</Button>
+    </Container>
   );
 };
+
+export default CreateVideos;

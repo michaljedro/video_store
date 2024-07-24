@@ -1,63 +1,64 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-
-interface Movie {
-  _id: string;
-  title: string;
-  author: string;
-  year: number;
+createdAt: string;
+updatedAt: string;
 }
 
-const Show: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const [movie, setMovie] = useState<Movie | null>(null);
-  const [loading, setLoading] = useState(true);
+const ShowVideo: React.FC = () => {
+const [video, setVideo] = useState<Video | null>(null);
+const [loading, setLoading] = useState(false);
+const { id } = useParams<{ id: string }>();
 
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`http://localhost:3000/movie/${id}`)
-      .then((response) => {
-        console.log("API Response:", response.data); // Logowanie odpowiedzi API
-        setMovie(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching the movie data!", error);
-        setLoading(false);
-      });
-  }, [id]);
+useEffect(() => {
+  setLoading(true);
+  axios
+    .get(`http://localhost:5555/videos/${id}`)
+    .then((response) => {
+      setVideo(response.data);
+      setLoading(false);
+    })
+    .catch((error) => {
+      console.log(error);
+      setLoading(false);
+    });
+}, [id]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!movie) {
-    return <div>Movie not found</div>;
-  }
-
-  return (
-    <div>
-      <h1>{movie.title}</h1>
-      <div>
-        <span>ID: </span>
-        <span>{movie._id}</span>
-      </div>
-      <div>
-        <span>Title: </span>
-        <span>{movie.title}</span>
-      </div>
-      <div>
-        <span>Author: </span>
-        <span>{movie.author}</span>
-      </div>
-      <div>
-        <span>Year: </span>
-        <span>{movie.year}</span>
-      </div>
-    </div>
-  );
+return (
+  <Container>
+    <BackButton />
+    <Title>Szczegóły Wideo</Title>
+    {loading ? (
+      <Loader />
+    ) : (
+      video && (
+        <div>
+          <InfoRow>
+            <Label>Identyfikator</Label>
+            <span>{video._id}</span>
+          </InfoRow>
+          <InfoRow>
+            <Label>Tytuł</Label>
+            <span>{video.title}</span>
+          </InfoRow>
+          <InfoRow>
+            <Label>Autor</Label>
+            <span>{video.author}</span>
+          </InfoRow>
+          <InfoRow>
+            <Label>Rok publikacji</Label>
+            <span>{video.publishYear}</span>
+          </InfoRow>
+          <InfoRow>
+            <Label>Czas utworzenia</Label>
+            <span>{new Date(video.createdAt).toString()}</span>
+          </InfoRow>
+          <InfoRow>
+            <Label>Ostatnia aktualizacja</Label>
+            <span>{new Date(video.updatedAt).toString()}</span>
+          </InfoRow>
+        </div>
+      )
+    )}
+  </Container>
+);
 };
 
-export default Show;
+export default ShowVideo;
