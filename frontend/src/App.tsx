@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import Home from "./pages/Home";
-import CreateVideo from "./pages/CreateVideo";
-import ShowVideo from "./pages/ShowVideo";
-import EditVideo from "./pages/EditVideo";
-import DeleteVideo from "./pages/DeleteVideo";
+import CreateVideo from "./pages/Create";
+import ShowVideo from "./pages/Show";
+import EditVideo from "./pages/Edit";
+import DeleteVideo from "./pages/Delete";
 
 const Container = styled.div`
   font-family: Arial, sans-serif;
