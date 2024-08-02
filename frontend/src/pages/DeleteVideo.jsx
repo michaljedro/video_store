@@ -34,10 +34,10 @@ const Button = styled.button`
   }
 `;
 
-const DeleteVideo: React.FC = () => {
+const DeleteVideo = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
 
   const handleDeleteVideo = () => {
     setLoading(true);

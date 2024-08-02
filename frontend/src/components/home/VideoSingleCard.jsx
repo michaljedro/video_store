@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
 import { PiBookOpenTextLight } from "react-icons/pi";
 import { BiUserCircle, BiShow } from "react-icons/bi";
-import { AiOutlineEdit } from "react-icons/ai";
-import { BsInfoCircle } from "react-icons/bs";
-import { MdOutlineDelete } from "react-icons/md";
+import { AiOutlineForm, AiOutlineEye, AiOutlineDelete } from "react-icons/ai";
 import { useState } from "react";
 import VideoModal from "./VideoModal";
 import styled from "styled-components";
@@ -50,29 +48,18 @@ const Operations = styled.div`
   margin-top: 20px;
 `;
 
-interface Video {
-  _id: string;
-  title: string;
-  author: string;
-  publishYear: number;
-}
-
-interface VideoSingleCardProps {
-  video: Video;
-}
-
-const VideoSingleCard: React.FC<VideoSingleCardProps> = ({ video }) => {
+const VideoSingleCard = ({ video }) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <Card>
-      <Year>{video.publishYear}</Year>
-      <Id>{video._id}</Id>
+      <Year>{video.title}</Year>
+      {/* <Id>{video._id}</Id> */}
       <Info>
         <IconWrapper>
           <PiBookOpenTextLight />
         </IconWrapper>
-        <Title>{video.title}</Title>
+        <Title>{video.publishYear}</Title>
       </Info>
       <Info>
         <IconWrapper>
@@ -83,13 +70,13 @@ const VideoSingleCard: React.FC<VideoSingleCardProps> = ({ video }) => {
       <Operations>
         <BiShow onClick={() => setShowModal(true)} />
         <Link to={`/videos/details/${video._id}`}>
-          <BsInfoCircle />
+          <AiOutlineForm />
         </Link>
         <Link to={`/videos/edit/${video._id}`}>
-          <AiOutlineEdit />
+          <AiOutlineEye />
         </Link>
         <Link to={`/videos/delete/${video._id}`}>
-          <MdOutlineDelete />
+          <AiOutlineDelete />
         </Link>
       </Operations>
       {showModal && (

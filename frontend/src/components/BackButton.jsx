@@ -24,11 +24,7 @@ const StyledLink = styled(Link)`
   }
 `;
 
-interface BackButtonProps {
-  destination?: string;
-}
-
-const BackButton: React.FC<BackButtonProps> = ({ destination = "/" }) => {
+const BackButton = ({ destination = "/" }) => {
   return (
     <Container>
       <StyledLink to={destination}>

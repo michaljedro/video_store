@@ -63,30 +63,18 @@ const Content = styled.p`
   color: #555;
 `;
 
-interface Video {
-  _id: string;
-  title: string;
-  author: string;
-  publishYear: number;
-}
-
-interface VideoModalProps {
-  video: Video;
-  onClose: () => void;
-}
-
-const Modal: React.FC<ModalProps> = ({ video, onClose }) => {
+const VideoModal = ({ video, onClose }) => {
   return (
     <Overlay onClick={onClose}>
       <Modal onClick={(event) => event.stopPropagation()}>
         <CloseIcon onClick={onClose} />
-        <Year>{video.publishYear}</Year>
-        <Id>{video._id}</Id>
+        <Year>{video.title}</Year>
+        {/* <Id>{video._id}</Id> */}
         <Info>
           <IconWrapper>
             <PiBookOpenTextLight />
           </IconWrapper>
-          <Title>{video.title}</Title>
+          <Title>{video.publishYear}</Title>
         </Info>
         <Info>
           <IconWrapper>
@@ -96,16 +84,16 @@ const Modal: React.FC<ModalProps> = ({ video, onClose }) => {
         </Info>
         <Content>Treść, którą chcesz wyświetlić</Content>
         <Content>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quia
-          voluptatum sint. Nisi impedit libero eveniet cum vitae qui expedita
-          necessitatibus assumenda laboriosam, facilis iste cumque a pariatur
-          nesciunt cupiditate voluptas? Quis atque earum voluptate dolor nisi
-          dolorum est? Deserunt placeat cumque quo dicta architecto, dolore
-          vitae voluptate sequi repellat!
+          Pellentesque vitae porta lacus, a lobortis mi. Donec sagittis, mauris
+          vitae scelerisque aliquet, dui augue ullamcorper ligula, a pretium
+          nulla enim sit amet dolor. Sed tincidunt rutrum metus quis tincidunt.
+          Phasellus non feugiat lorem. Pellentesque quis volutpat arcu.
+          Curabitur pretium gravida lectus, vel tempor nisl hendrerit euismod.
+          Nulla facilisis dui.
         </Content>
       </Modal>
     </Overlay>
   );
 };
 
-export default Modal;
+export default VideoModal;

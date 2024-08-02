@@ -53,17 +53,10 @@ const AddButton = styled(Link)`
   }
 `;
 
-interface Video {
-  _id: string;
-  title: string;
-  author: string;
-  publishYear: number;
-}
-
-const Home: React.FC = () => {
-  const [videos, setVideos] = useState<Video[]>([]);
+const Home = () => {
+  const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [showType, setShowType] = useState<"table" | "card">("table");
+  const [showType, setShowType] = useState("table");
 
   useEffect(() => {
     setLoading(true);

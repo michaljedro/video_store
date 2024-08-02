@@ -47,13 +47,7 @@ const Button = styled.button`
   }
 `;
 
-interface Video {
-  title: string;
-  author: string;
-  publishYear: number;
-}
-
-const CreateVideos: React.FC = () => {
+const CreateVideos = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [publishYear, setPublishYear] = useState("");
@@ -61,7 +55,7 @@ const CreateVideos: React.FC = () => {
   const navigate = useNavigate();
 
   const handleSaveVideo = () => {
-    const data: Video = {
+    const data = {
       title,
       author,
       publishYear,

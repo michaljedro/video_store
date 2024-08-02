@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-import { AiOutlineEdit } from "react-icons/ai";
-import { BsInfoCircle } from "react-icons/bs";
-import { MdOutlineDelete } from "react-icons/md";
+import { AiOutlineForm, AiOutlineEye, AiOutlineDelete } from "react-icons/ai";
 import styled from "styled-components";
 
 const Table = styled.table`
@@ -39,23 +37,12 @@ const Operations = styled.div`
   justify-content: space-around;
 `;
 
-interface Video {
-  _id: string;
-  title: string;
-  author: string;
-  publishYear: number;
-}
-
-interface VideosTableProps {
-  videos: Video[];
-}
-
-const VideosTable: React.FC<VideosTableProps> = ({ videos }) => {
+const VideosTable = ({ videos }) => {
   return (
     <Table>
       <Thead>
         <Tr>
-          <Th>No</Th>
+          <Th>Lp</Th>
           <Th>Tytuł</Th>
           <Th>Autor</Th>
           <Th>Rok publikacji</Th>
@@ -72,13 +59,13 @@ const VideosTable: React.FC<VideosTableProps> = ({ videos }) => {
             <Td>
               <Operations>
                 <Link to={`/videos/details/${video._id}`}>
-                  <BsInfoCircle />
+                  <AiOutlineEye />
                 </Link>
                 <Link to={`/videos/edit/${video._id}`}>
-                  <AiOutlineEdit />
+                  <AiOutlineForm />
                 </Link>
                 <Link to={`/videos/delete/${video._id}`}>
-                  <MdOutlineDelete />
+                  <AiOutlineDelete />
                 </Link>
               </Operations>
             </Td>

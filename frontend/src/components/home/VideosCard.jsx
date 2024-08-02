@@ -9,18 +9,7 @@ const Container = styled.div`
   padding: 20px;
 `;
 
-interface Video {
-  _id: string;
-  title: string;
-  author: string;
-  publishYear: number;
-}
-
-interface VideosCardProps {
-  videos: Video[];
-}
-
-const VideosCard: React.FC<VideosCardProps> = ({ videos }) => {
+const VideosCard = ({ videos }) => {
   return (
     <Container>
       {videos.map((item) => (

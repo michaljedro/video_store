@@ -48,19 +48,13 @@ const Button = styled.button`
   }
 `;
 
-interface Video {
-  title: string;
-  author: string;
-  publishYear: number;
-}
-
-const EditVideo: React.FC = () => {
+const EditVideo = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [publishYear, setPublishYear] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -81,7 +75,7 @@ const EditVideo: React.FC = () => {
   }, [id]);
 
   const handleEditVideo = () => {
-    const data: Video = {
+    const data = {
       title,
       author,
       publishYear,

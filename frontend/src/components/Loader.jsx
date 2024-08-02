@@ -19,7 +19,7 @@ const Spinner = styled.div`
   animation: ${spin} 1s ease-in-out infinite;
 `;
 
-const Loader: React.FC = () => {
+const Loader = () => {
   return <Spinner />;
 };
 
