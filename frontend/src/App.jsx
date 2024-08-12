@@ -1,6 +1,9 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import styled from "styled-components";
 import Home from "./pages/Home";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import MainPage from "./pages/MainPage";
 import CreateVideo from "./pages/CreateVideo";
 import ShowVideo from "./pages/ShowVideo";
 import EditVideo from "./pages/EditVideo";
@@ -17,7 +20,10 @@ const App = () => {
   return (
     <Container>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Navigate replace to="/login" />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/videos/create" element={<CreateVideo />} />
         <Route path="/videos/details/:id" element={<ShowVideo />} />
         <Route path="/videos/edit/:id" element={<EditVideo />} />

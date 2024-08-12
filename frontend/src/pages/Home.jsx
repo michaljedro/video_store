@@ -6,7 +6,10 @@ import { MdOutlineAddBox } from "react-icons/md";
 import VideosTable from "../components/home/VideosTable";
 import VideosCard from "../components/home/VideosCard";
 import styled from "styled-components";
-
+import { onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import auth from "../firebase";
+import { signOut } from "firebase/auth";
 const Container = styled.div`
   padding: 20px;
   background-color: #fff;
@@ -57,7 +60,15 @@ const Home = () => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showType, setShowType] = useState("table");
+  const navigate = useNavigate();
+  const user = auth.currentUser;
 
+  const logoutUser = async (e) => {
+    e.preventDefault();
+
+    await signOut(auth);
+    navigate("/");
+  };
   useEffect(() => {
     setLoading(true);
     axios
@@ -70,10 +81,34 @@ const Home = () => {
         console.log(error);
         setLoading(false);
       });
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        // ...
+        console.log("uid", uid);
+      } else {
+        // User is signed out
+        // ...
+        console.log("user is logged out");
+      }
+    });
   }, []);
 
   return (
     <Container>
+      <div>
+        <div>
+          <div>
+            <div>
+              <button type="submit" onClick={(e) => logoutUser(e)}>
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <ButtonGroup>
         <Button onClick={() => setShowType("table")}>Tabela</Button>
         <Button onClick={() => setShowType("card")}>Karta</Button>
