@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const videoSchema = mongoose.Schema(
+const videoSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -10,7 +10,7 @@ const videoSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    publishYear: {
+    Year: {
       type: Number,
       required: true,
     },
@@ -20,4 +20,6 @@ const videoSchema = mongoose.Schema(
   }
 );
 
-export const Video = mongoose.model("Video", videoSchema);
+const Video = mongoose.model("Video", videoSchema);
+
+export { Video };

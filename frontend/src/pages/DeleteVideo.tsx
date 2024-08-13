@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import BackButton from "../components/BackButton";
 import Loader from "../components/Loader";
 import axios from "axios";
@@ -34,10 +34,10 @@ const Button = styled.button`
   }
 `;
 
-const DeleteVideo = () => {
-  const [loading, setLoading] = useState(false);
+const DeleteVideo: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
 
   const handleDeleteVideo = () => {
     setLoading(true);
@@ -57,7 +57,7 @@ const DeleteVideo = () => {
     <Container>
       <BackButton />
       <Title>Usuń Wideo</Title>
-      {loading ? <Loader /> : ""}
+      {loading && <Loader />}
       <Confirmation>
         <h3>Czy na pewno chcesz usunąć to wideo?</h3>
         <Button onClick={handleDeleteVideo}>Tak, usuń</Button>

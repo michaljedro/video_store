@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "../components/Loader";
 import { Link } from "react-router-dom";
@@ -8,8 +8,8 @@ import VideosCard from "../components/home/VideosCard";
 import styled from "styled-components";
 import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import auth from "../firebase";
-import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
+
 const Container = styled.div`
   padding: 20px;
   background-color: #fff;
@@ -56,19 +56,27 @@ const AddButton = styled(Link)`
   }
 `;
 
-const Home = () => {
-  const [videos, setVideos] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [showType, setShowType] = useState("table");
+interface Video {
+  _id: string;
+  title: string;
+  author: string;
+  publishYear: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+const Home: React.FC = () => {
+  const [videos, setVideos] = useState<Video[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showType, setShowType] = useState<string>("table");
   const navigate = useNavigate();
   const user = auth.currentUser;
 
-  const logoutUser = async (e) => {
+  const logoutUser = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    await signOut(auth);
     navigate("/");
   };
+
   useEffect(() => {
     setLoading(true);
     axios
@@ -81,16 +89,12 @@ const Home = () => {
         console.log(error);
         setLoading(false);
       });
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
         const uid = user.uid;
-        // ...
         console.log("uid", uid);
       } else {
-        // User is signed out
-        // ...
         console.log("user is logged out");
       }
     });
@@ -102,7 +106,7 @@ const Home = () => {
         <div>
           <div>
             <div>
-              <button type="submit" onClick={(e) => logoutUser(e)}>
+              <button type="submit" onClick={logoutUser}>
                 Logout
               </button>
             </div>

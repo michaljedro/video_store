@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import BackButton from "../components/BackButton";
-import Spinner from "../components/Loader";
+import Loader from "../components/Loader";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -48,33 +47,14 @@ const Button = styled.button`
   }
 `;
 
-const EditVideo = () => {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [publishYear, setPublishYear] = useState("");
-  const [loading, setLoading] = useState(false);
+const CreateVideos: React.FC = () => {
+  const [title, setTitle] = useState<string>("");
+  const [author, setAuthor] = useState<string>("");
+  const [publishYear, setPublishYear] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { id } = useParams();
-  const { enqueueSnackbar } = useSnackbar();
 
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`http://localhost:5555/videos/${id}`)
-      .then((response) => {
-        setAuthor(response.data.author);
-        setPublishYear(response.data.publishYear);
-        setTitle(response.data.title);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        alert("Wystąpił błąd. Sprawdź konsolę.");
-        console.log(error);
-      });
-  }, [id]);
-
-  const handleEditVideo = () => {
+  const handleSaveVideo = () => {
     const data = {
       title,
       author,
@@ -82,17 +62,13 @@ const EditVideo = () => {
     };
     setLoading(true);
     axios
-      .put(`http://localhost:5555/videos/${id}`, data)
+      .post("http://localhost:5555/videos", data)
       .then(() => {
         setLoading(false);
-        enqueueSnackbar("Wideo zostało zaktualizowane pomyślnie", {
-          variant: "success",
-        });
         navigate("/");
       })
       .catch((error) => {
         setLoading(false);
-        enqueueSnackbar("Błąd", { variant: "error" });
         console.log(error);
       });
   };
@@ -100,8 +76,8 @@ const EditVideo = () => {
   return (
     <Container>
       <BackButton />
-      <Title>Edytuj Wideo</Title>
-      {loading ? <Spinner /> : ""}
+      <Title>Utwórz Wideo</Title>
+      {loading && <Loader />}
       <FormGroup>
         <Label>Tytuł</Label>
         <Input
@@ -126,9 +102,9 @@ const EditVideo = () => {
           onChange={(e) => setPublishYear(e.target.value)}
         />
       </FormGroup>
-      <Button onClick={handleEditVideo}>Zapisz</Button>
+      <Button onClick={handleSaveVideo}>Zapisz</Button>
     </Container>
   );
 };
 
-export default EditVideo;
+export default CreateVideos;

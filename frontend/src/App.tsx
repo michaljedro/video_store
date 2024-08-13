@@ -1,9 +1,9 @@
+import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import styled from "styled-components";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import MainPage from "./pages/MainPage";
 import CreateVideo from "./pages/CreateVideo";
 import ShowVideo from "./pages/ShowVideo";
 import EditVideo from "./pages/EditVideo";
@@ -16,7 +16,7 @@ const Container = styled.div`
   background-color: #f0f0f0;
 `;
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <Container>
       <Routes>

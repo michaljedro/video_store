@@ -1,16 +1,16 @@
 import styled from "styled-components";
-import { useState } from "react";
-import auth from "../firebase";
+import React, { useState, FormEvent } from "react";
+import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login: React.FC = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [notice, setNotice] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [notice, setNotice] = useState<string>("");
 
-  const loginWithUsernameAndPassword = async (e) => {
+  const loginWithUsernameAndPassword = async (e: FormEvent) => {
     e.preventDefault();
 
     try {
@@ -48,10 +48,7 @@ const Login = () => {
             <Label htmlFor="exampleInputPassword1">Password</Label>
           </FormGroup>
           <ButtonGroup>
-            <Button
-              type="submit"
-              onClick={(e) => loginWithUsernameAndPassword(e)}
-            >
+            <Button type="submit" onClick={loginWithUsernameAndPassword}>
               Submit
             </Button>
           </ButtonGroup>

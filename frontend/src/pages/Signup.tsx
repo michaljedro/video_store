@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import React, { useState } from "react";
-import auth from "../firebase";
+import React, { useState, FormEvent } from "react";
+import { auth } from "../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithPopup,
@@ -8,18 +8,18 @@ import {
 } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 
-const Signup = () => {
+const Signup: React.FC = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [notice, setNotice] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [notice, setNotice] = useState<string>("");
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-  const signupWithUsernameAndPassword = async (e) => {
+  const signupWithUsernameAndPassword = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!emailRegex.test(email)) {
@@ -100,10 +100,7 @@ const Signup = () => {
             <Label htmlFor="confirmPassword">Confirm Password</Label>
           </FormGroup>
           <ButtonGroup>
-            <Button
-              type="submit"
-              onClick={(e) => signupWithUsernameAndPassword(e)}
-            >
+            <Button type="submit" onClick={signupWithUsernameAndPassword}>
               Sign up
             </Button>
             <GoogleButton onClick={signupWithGoogle}>
